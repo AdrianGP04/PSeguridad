@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title> Proyecto Seguridad | Inicio </title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link type="image/x-icon" href="./favicon.ico" rel="icon" />
+        <script src="./bootstrap/js/jquery.min.js"></script>
+        <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+        <script src="./bootstrap/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html"> Proyecto Seguridad </a>
+            </div>
+            </div>
+        </nav>
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modaluno"> Iniciar sesión </button>
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modaldos"> Registrarse </button>
+
+    <div class="modal fade" id="modaluno" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Iniciar sesión</h4>
+          </div>
+          <div class="modal-body">
+            <form autocomplete="off" action="inicio.php" method="POST">
+                <div class="form-group">
+                    <input type="text" name="LogInInput" placeholder="Nombre de usuario"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="LogInPass" placeholder="Contraseña" />
+                </div>
+              <p id="LogInError"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" id="LogInSubmit" class="btn btn-default btn-block">Iniciar sesión</button>
+        </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modaldos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Registro</h4>
+          </div>
+          <div class="modal-body">
+              <form autocomplete="off">
+                  <div class="form-group">
+                      <input type="text" id="RegInput" placeholder="Nombre de usuario"/>
+                  </div>
+                  <div class="form-group">
+                      <input type="password" id="RegPass" placeholder="Contraseña" />
+                  </div>
+                  <div class="form-group">
+                      <input type="password" id="RegPass2" placeholder="Confirmar contraseña" />
+                  </div>
+              </form>
+                <p id="RegError"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-block" id="RegSubmit">Registrarse</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </body>
+    <script>
+    $("#RegSubmit").click(function(event){
+        event.preventDefault();
+       $.post("registro.php",
+       {
+         RegInput: $("#RegInput").val(),
+         RegPass: $("#RegPass").val(),
+         RegPassConfirm: $("#RegPass2").val()
+       },
+       function(data){
+           if(data != "Location: index.html")
+               $("#RegError").html(data);
+        else
+            location.reload();
+       });
+    });
+
+    </script>
+</html>
